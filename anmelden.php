@@ -49,6 +49,7 @@ require_once 'login.php';
                         if($login->sql_logintest($_POST['email'],$_POST['password'])){
                         
                             $_SESSION['login'] = true;
+                            $_SESSION['email'] = $_POST['email'];
                             header("Location: dashboard.php", true, 302);
                             exit();
                             }

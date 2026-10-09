@@ -6,6 +6,8 @@ if(!isset($_SESSION['login']) || !$_SESSION['login']){
     exit();
 }
 require_once 'logout.php';
+require_once 'user.php';
+$nutzer = new user($_SESSION['email']);
 ?>
 
 
@@ -25,12 +27,10 @@ require_once 'logout.php';
             <button name="abmelden">Abmelden</button>
         </form>
 
-        <div>   <p>Willkommen</p>   </div>
-
-
-
-
-
+        <div>   <p>Willkommen</p>   
+                <p>Dein Kontostand beträgt: <?php  echo $nutzer->getGeld() . '€';?>!</p>
+    
+        </div>
         <?php 
         if(isset($_POST['abmelden'])){
             $sessionStop = new logout();
