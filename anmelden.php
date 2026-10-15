@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+//already logt in
 if(isset($_SESSION['login']) && $_SESSION['login']){
     header("Location: dashboard.php", true, 302);
     exit();
@@ -14,7 +14,7 @@ require_once 'login.php';
 
 <head>
         <meta charset="utf-8">
-        <title></title>
+        <title>Anmelden</title>
     
     </head>
     
@@ -36,23 +36,18 @@ require_once 'login.php';
         </div>
 
         <?php
-
-
-
-                //echo(password_hash("hallo",PASSWORD_DEFAULT));
                     if ($_SERVER['REQUEST_METHOD']== "POST" && isset($_POST['anmelden'])){
-                    echo htmlspecialchars($_POST['email']);
+                    echo "Your imput: ";
+                    echo htmlspecialchars($_POST['email']) . " ";
                     echo htmlspecialchars($_POST['password']);
                     $login = new logintest();
-                    //$login->sql_newUser('florian@outlook.com',password_hash("hallo",PASSWORD_DEFAULT));
-                    //$login->sql_newUser($_POST['email'],password_hash($_POST['password'], PASSWORD_DEFAULT));
                         if($login->sql_logintest($_POST['email'],$_POST['password'])){
                         
                             $_SESSION['login'] = true;
                             $_SESSION['email'] = $_POST['email'];
                             header("Location: dashboard.php", true, 302);
                             exit();
-                            }
+                        }
                     } 
         ?>
                     <footer>

@@ -29,16 +29,6 @@ class logintest {
         }
         
     }
-    public function sql_newUser($em,$pwH){
-        $db1 = new SQLite3('user.db');
-            if($db1){
-                echo "con established";
-                $db1->exec("INSERT INTO user (email,pwHash) VALUES ('$em','$pwH')");
-            }
-            else{
-                echo "no con";
-            }
-    }
 
 
 

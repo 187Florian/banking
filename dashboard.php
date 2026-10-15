@@ -8,6 +8,7 @@ if(!isset($_SESSION['login']) || !$_SESSION['login']){
 require_once 'logout.php';
 require_once 'user.php';
 $nutzer = new user($_SESSION['email']);
+$nutzer->changeGeld(-4.53);
 ?>
 
 
@@ -15,7 +16,7 @@ $nutzer = new user($_SESSION['email']);
 <html>
     <head>
         <meta charset="utf-8">
-        <title></title>
+        <title>Dashbaord</title>
         <link rel="stylesheet" href="">
     </head>
     <body>
@@ -26,6 +27,8 @@ $nutzer = new user($_SESSION['email']);
         <form method="post">
             <button name="abmelden">Abmelden</button>
         </form>
+
+
 
         <div>   <p>Willkommen</p>   
                 <p>Dein Kontostand beträgt: <?php  echo $nutzer->getGeld() . '€';?>!</p>
