@@ -1,12 +1,18 @@
 <?php
 session_start();
-//look if its is 
+require_once 'logout.php';
+require_once 'user.php';
+//look if logt in
 if(!isset($_SESSION['login']) || !$_SESSION['login']){
     header("Location: anmelden.php", true, 302);
     exit();
 }
-require_once 'logout.php';
-require_once 'user.php';
+//abmelden knopf
+if(isset($_POST['abmelden'])){
+    $sessionStop = new logout();
+    $sessionStop->abmelden();
+}
+
 $nutzer = new user($_SESSION['email']);
 $nutzer->changeGeld(-4.53);
 ?>
@@ -34,13 +40,7 @@ $nutzer->changeGeld(-4.53);
                 <p>Dein Kontostand beträgt: <?php  echo $nutzer->getGeld() . '€';?>!</p>
     
         </div>
-        <?php 
-        if(isset($_POST['abmelden'])){
-            $sessionStop = new logout();
-            $sessionStop->abmelden();
-           
-        }
-        ?>
+        
 
     </body>
 </html>

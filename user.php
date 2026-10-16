@@ -65,4 +65,3 @@ public function changeGeld($amount){
     
 }
 }
-?>

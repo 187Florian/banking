@@ -1,6 +1,6 @@
 <?php
 
-class logintest {
+class login {
 
 
 
@@ -42,7 +42,6 @@ class logintest {
             $pwHash = $pwHashObjekt->fetch(PDO::FETCH_ASSOC);
             if($pwHash){
                 if(password_verify($pw,$pwHash['pwHash'])){
-                    echo " Loged in!";
                     return true;
                 }
                     else{
@@ -59,4 +58,3 @@ class logintest {
     return false;
     }
 }
-?>
