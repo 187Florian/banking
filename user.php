@@ -16,6 +16,7 @@ static function user($em,$pwClear){
 public function testForUser($em){
 try{
     //SELECT EXISTS(SELECT 1 FROM user WHERE email = :em LIMIT 1);
+    return true;
 }
 catch(PDOException $e) {
     echo "Datenbank Fehler: " . $e->getMessage();
