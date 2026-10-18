@@ -15,8 +15,10 @@ static function user($em,$pwClear){
 
 public function testForUser($em){
 try{
-    //SELECT EXISTS(SELECT 1 FROM user WHERE email = :em LIMIT 1);
-    return true;
+    $testForUser = $this->db->prepare("SELECT EXISTS(SELECT 1 FROM user WHERE email = :em);");
+    $testForUser->execute([':em'=>$em]);
+    $result = (bool) $testForUser->fetchColumn();
+    return $result;
 }
 catch(PDOException $e) {
     echo "Datenbank Fehler: " . $e->getMessage();
@@ -24,14 +26,21 @@ catch(PDOException $e) {
 }
 public static function newUser($em,$pw){
     try{
-        $tempUser = new user($em);
+        $tempUser = new user(strtolower(trim($em)));
+        //test if already an user with this email
+        if(!$tempUser->testForUser($tempUser->getEmail())&&filter_var($tempUser->getEmail(), FILTER_VALIDATE_EMAIL)){
         $createNewUserSQL = $tempUser->db->prepare(
         "INSERT INTO user (email,pwHash,geld)
         VALUES (:email,:pwHash,:geld);");
-        $createNewUserSQL->execute([':email'=>$em,':pwHash'=>password_hash($pw,PASSWORD_DEFAULT),':geld'=>10]);
-    }
+        $createNewUserSQL->execute([':email'=>$tempUser->getEmail(),':pwHash'=>password_hash($pw,PASSWORD_DEFAULT),':geld'=>10]);
+        return true;
+        }
+        echo "There is already a user with this em! or this is not an em";
+        return false;
+        }
     catch(PDOException $e){
         echo "Datenbank Fehler: " . $e->getMessage();
+        return false;
     }
 
 }
@@ -49,7 +58,9 @@ public function getGeld(){
         echo "Datenbank Fehler: " . $e->getMessage();
     }
 }
-
+public function getEmail(){
+    return $this->em;
+}
 
 public function changeGeld($amount){
     try{
