@@ -14,7 +14,7 @@ if(isset($_POST['abmelden'])){
 }
 
 $nutzer = new user($_SESSION['email']);
-$nutzer->changeGeld(-4.53);
+
 ?>
 
 

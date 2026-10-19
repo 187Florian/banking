@@ -35,7 +35,7 @@ public static function newUser($em,$pw){
         $createNewUserSQL->execute([':email'=>$tempUser->getEmail(),':pwHash'=>password_hash($pw,PASSWORD_DEFAULT),':geld'=>10]);
         return true;
         }
-        echo "There is already a user with this em! or this is not an em";
+        echo "There is already a user with this em or this is not an em,";
         return false;
         }
     catch(PDOException $e){
@@ -64,7 +64,7 @@ public function getEmail(){
 
 public function changeGeld($amount){
     try{
-        echo "geld wird um " . $amount . " geändert";
+        echo "Der Kontostand wird um " . $amount . " geändert.";
         $newAmount = $this->getGeld() + $amount;
         $geldChange = $this->db->prepare("UPDATE user
         SET geld = :pAmount

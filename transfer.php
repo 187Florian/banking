@@ -28,16 +28,24 @@ $user = new User($_SESSION['email']);
     </head>
     <body>
         <h2>Überwesungen</h2>
-
+        <h3>Sie können <?php 
+        $avMoney = $user->getGeld();
+        if($avMoney<0){
+            $avMoney = 0;
+        }
+        echo $avMoney;
+        ?>€ überweisen</h3>
     <form action="transfer.php" method="post">
         <input type="email" name="mail" placeholder="Empfänger Email">
         <input type="number" min="1" name="menge" placeholder="Menge">
         <button name="ueberweisen">Überweisen</button>
     </form>
+    <a href="dashboard.php">Zurück</a>
+    
     <?php
         if($_SERVER['REQUEST_METHOD']== "POST" && isset($_POST['ueberweisen'])){
             $menge = (int)$_POST['menge']; 
-            if($user->testForUser($_POST['mail'])&& $user->getGeld() >= $menge){
+            if($user->testForUser($_POST['mail'])&& $user->getGeld() >= $menge && $menge>0){
                 //test if selbstüberweisung
                 echo $user->getEmail();
                 if($user->getEmail()!=strtolower(trim($_POST['mail']))){
