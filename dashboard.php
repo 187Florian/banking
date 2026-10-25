@@ -2,11 +2,9 @@
 session_start();
 require_once 'logout.php';
 require_once 'user.php';
-//look if logt in
-if(!isset($_SESSION['login']) || !$_SESSION['login']){
-    header("Location: anmelden.php", true, 302);
-    exit();
-}
+//check if logt in
+require_once 'check_auth.php';
+
 //abmelden knopf
 if(isset($_POST['abmelden'])){
     $sessionStop = new logout();
@@ -42,6 +40,6 @@ $nutzer = new user($_SESSION['email']);
                 <a href="transfer.php">Überweisungen</a>
         </div>
         
-
+    
     </body>
 </html>

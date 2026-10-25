@@ -1,17 +1,16 @@
 <?php
 session_start();
 require_once 'login.php';
+require_once 'tool.php';
 //already logt in
-if(isset($_SESSION['login']) && $_SESSION['login']){
-    header("Location: dashboard.php", true, 302);
-    exit();
-}
+require_once 'check_not_loged_in.php';
+
 //header dashboard und überprüfer
 if ($_SERVER['REQUEST_METHOD']== "POST" && isset($_POST['anmelden'])){
     $login = new login();
         if($login->sql_logintest($_POST['email'],$_POST['password'])){
             $_SESSION['login'] = true;
-            $_SESSION['email'] = $_POST['email'];
+            $_SESSION['email'] = tool::emBereinigen($_POST['email']);
             header("Location: dashboard.php", true, 302);
             exit();
         }
@@ -43,12 +42,11 @@ if ($_SERVER['REQUEST_METHOD']== "POST" && isset($_POST['anmelden'])){
                 <button type="submit" name="anmelden">Anmelden</button>
             </form>
         </div>
-
-        <?php
-                    
-        ?>
-                    <footer>
-                        <a href="index.html">Zurück zur Hauptseite</a>
-                    </footer>
+        <p>Noch kein Konto?</p>
+        <a href="registrieren.php">Registrieren</a>
+        
+        <footer>
+            <p><a href="index.html">Zurück zur Hauptseite</a></p>
+        </footer>
     </body>
 </html>

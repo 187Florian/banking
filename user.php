@@ -1,4 +1,6 @@
 <?php
+require_once 'tool.php';
+
 class user{
 
 private $em;
@@ -6,11 +8,9 @@ private $db;
 
 function __construct($pEm){
 $this->db= new PDO('sqlite:user.db');
-$this->em=$pEm;
+$this->em=tool::emBereinigen($pEm);
 }
 
-static function user($em,$pwClear){
-}
 
 
 public function testForUser($em){
@@ -26,7 +26,7 @@ catch(PDOException $e) {
 }
 public static function newUser($em,$pw){
     try{
-        $tempUser = new user(strtolower(trim($em)));
+        $tempUser = new user(tool::emBereinigen($em));
         //test if already an user with this email
         if(!$tempUser->testForUser($tempUser->getEmail())&&filter_var($tempUser->getEmail(), FILTER_VALIDATE_EMAIL)){
         $createNewUserSQL = $tempUser->db->prepare(
@@ -35,7 +35,7 @@ public static function newUser($em,$pw){
         $createNewUserSQL->execute([':email'=>$tempUser->getEmail(),':pwHash'=>password_hash($pw,PASSWORD_DEFAULT),':geld'=>10]);
         return true;
         }
-        echo "There is already a user with this em or this is not an em,";
+        
         return false;
         }
     catch(PDOException $e){
@@ -45,6 +45,7 @@ public static function newUser($em,$pw){
 
 }
 public function getGeld(){
+    if($this->testForUser(tool::emBereinigen($this->em))){
     try{
         $geldSQLpayload = $this->db->prepare(
             "SELECT geld
@@ -58,22 +59,55 @@ public function getGeld(){
         echo "Datenbank Fehler: " . $e->getMessage();
     }
 }
+}
 public function getEmail(){
     return $this->em;
 }
 
-public function changeGeld($amount){
-    try{
-        echo "Der Kontostand wird um " . $amount . " geändert.";
-        $newAmount = $this->getGeld() + $amount;
+public function ueberweisung($amount, $empfänger){
+    try{//rollback funtion mit begint transk.
+        $this->db->beginTransaction();
+
+        //absender
         $geldChange = $this->db->prepare("UPDATE user
-        SET geld = :pAmount
-        WHERE email = :pem;");
-        $geldChange->execute([':pAmount' => $newAmount,'pem'=> $this->em]);
+        SET geld = geld - :pAmount
+        WHERE email = :pem
+        AND geld >= :pAmount;
+        ");
+        $geldChange->execute([':pAmount' => $amount,':pem'=> $this->em]);
+
+        //empfänger
+        if($geldChange->rowCount()==1){
+            $empängerGeld = $this->db->prepare(
+            "UPDATE user
+            SET geld = geld + :pAmountEmpfänger
+            WHERE email = :empfängerEm"
+            );
+            $empängerGeld->execute([':pAmountEmpfänger' => $amount,':empfängerEm'=> $empfänger]);
+            if($empängerGeld->rowCount() !== 1) {
+                $this->db->rollBack();
+                return false;
+            }    
+        }
+        else{
+            $this->db->rollBack(); 
+            return false;
+        }
+        //änmderung permanent schreiben
+        $this->db->commit();
+        return true;
     }
     catch(PDOException $e) {
-        echo "Datenbank Fehler: " . $e->getMessage();
-    }
+        // fals mitten in der transaktion:
+        if ($this->db->inTransaction()) {
+            $this->db->rollBack();
+        }
     
+
+
+        echo "Datenbank Fehler: " . $e->getMessage();
+        
+    }
+    return false;
 }
 }
