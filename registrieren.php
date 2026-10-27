@@ -3,6 +3,7 @@ session_start();
 //already logt in
 require_once 'check_not_loged_in.php';
 require_once 'user.php';
+require_once 'lang.php';
 if($_SERVER['REQUEST_METHOD']==='POST'&& isset($_POST['regesNewUser'])){
     $email = trim($_POST['email']);
     $password = $_POST['password'];
@@ -32,24 +33,24 @@ $error = $error ?? "";
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Registrieren</title>
+        <title><?= $lngRegistrierenTitle[$_SESSION['lang']] ?></title>
         <link rel="stylesheet" href="style.css">
     </head>
     <body class="container2">
-        <h1>Konto erstellen</h1>
+        <h1><?= $lngRegistrierenTitle[$_SESSION['lang']] ?></h1>
         <form action="registrieren.php" method="post">
             
-        <input type="text" name="email" placeholder="Gültige E-Mail">
+        <input type="text" name="email" placeholder="<?= $lngRegistrierenPlaceholderPassword[$_SESSION['lang']] ?>">
 
-        <input type="password" name="password" placeholder="Sicheres Passwort">
+        <input type="password" name="password" placeholder="<?= $lngRegistrierenPlaceholderEmail[$_SESSION['lang']] ?>">
 
-        <button type="submit" name="regesNewUser">Registrieren</button>
+        <button type="submit" name="regesNewUser"><?= $lngRegistrierenButton[$_SESSION['lang']] ?></button>
         </form>
         <?php echo $error;?>
         <footer>
-        <p class="link"><a href="anmelden.php">Sie besitzen schon ein Konto?</a></p>
+        <p class="link"><a href="anmelden.php"><?= $lngRegistrierenFooterHaveAccount[$_SESSION['lang']] ?></a></p>
         
-        <p class="link"><a href="index.html">Zurück zur Hauptseite</a></p>
+        <p class="link"><a href="index.php"><?= $lngZurueckHauptseite[$_SESSION['lang']] ?></a></p>
         </footer>
        
     </body>
