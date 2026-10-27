@@ -39,10 +39,9 @@ $error = $error ?? "";
     <body class="container2">
         <h1><?= $lngRegistrierenTitle[$_SESSION['lang']] ?></h1>
         <form action="registrieren.php" method="post">
-            
-        <input type="text" name="email" placeholder="<?= $lngRegistrierenPlaceholderPassword[$_SESSION['lang']] ?>">
+        <input type="text" name="email" placeholder="<?= $lngRegistrierenPlaceholderEmail[$_SESSION['lang']] ?>">
 
-        <input type="password" name="password" placeholder="<?= $lngRegistrierenPlaceholderEmail[$_SESSION['lang']] ?>">
+        <input type="password" name="password" placeholder="<?= $lngRegistrierenPlaceholderPassword[$_SESSION['lang']] ?>">
 
         <button type="submit" name="regesNewUser"><?= $lngRegistrierenButton[$_SESSION['lang']] ?></button>
         </form>
