@@ -25,27 +25,25 @@ if($_SERVER['REQUEST_METHOD']== "POST" && isset($_POST['ueberweisen']) && isset(
 
 
         if($user->ueberweisung($menge,$postEmail)){
-
+            $error = "Erfolg";
             header("Location: transfer.php", true, 302);
             exit();
         }
         else{
-            echo "Error!";
+            $error = "Error!";
         }
-
-
-        
         }
         else{
-            echo "You can not transfer yourself money!";
+            $error = "You can not transfer yourself money!";
         }
     }
     else{
-        echo "error! ";
+        $error = "error! ";
     }
     
 
 }
+$error = $error ?? "";
 ?>
 
 <!DOCTYPE html>
@@ -54,9 +52,10 @@ if($_SERVER['REQUEST_METHOD']== "POST" && isset($_POST['ueberweisen']) && isset(
     <head>
         <meta charset="utf-8">
         <title>Überweisung</title>
+        <link rel="stylesheet" href="style.css">
     </head>
-    <body>
-        <h2>Überwesungen</h2>
+    <body class="container2">
+        <h1>Überwesungen</h1>
 
         
 
@@ -73,15 +72,17 @@ if($_SERVER['REQUEST_METHOD']== "POST" && isset($_POST['ueberweisen']) && isset(
         <input type="number" min="1" name="menge" placeholder="Menge">
         <button name="ueberweisen">Überweisen</button>
     </form>
+    <br>
+    <p><?php echo $error;?></p>
     
     
     
         <footer>
-            <p><a href="dashboard.php">Zurück zum Dashbaord</a></p>
+            <p class="link"><a href="dashboard.php">Zurück zum Dashbaord</a></p>
         </footer>
 
         <form method="post">
-            <button name="abmelden">Abmelden</button>
+            <button name="abmelden" class="abmelden">Abmelden</button>
         </form>
     </body>
 </html>

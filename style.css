@@ -1,0 +1,117 @@
+body{
+    background: #2A7B9B;
+background: linear-gradient(90deg,rgba(42, 123, 155, 1) 0%, rgba(87, 199, 133, 1) 50%, rgba(237, 221, 83, 1) 100%);
+    font-family: sans-serif;
+    min-height: 100vh;
+    margin: 0;
+    flex-direction: column;
+}
+* {
+    box-sizing: border-box;
+}
+.ansprache{
+    font-family: monospace;
+    font-style: italic;
+
+}
+.weiterleitungen:hover a{
+    color: #1984db;
+    text-decoration: underline;
+    border: solid 1px;
+    border-radius: 4px;
+    padding: 3px;
+    border-color: black;
+    
+}
+.weiterleitungen a{
+    padding-top: 10px;
+    color: black;
+    text-decoration: none;
+    font-size: 200%;
+}
+.link a{
+    color: black;
+    text-decoration: none;
+    font-size: 20px;
+    padding: 5px;
+    padding-left: 3vh;
+    padding-right: 3vh;
+}
+.link:hover a{
+    color: black;
+    text-decoration: underline;
+}
+.inhalt{
+
+    flex: 0 1 10%;
+}
+/*
+flex display for the unike style on index
+*/
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    padding: 4 vh 8vw;
+    width: 100%;
+    min-height: 85vh;
+}
+.geld{
+    flex: 0 1 20%;
+}
+.geld img{
+    width: 100%;
+    height: auto;
+}
+footer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2vh;
+    font-size: small;
+}
+.form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    font-size: 40px;
+}
+.abmelden {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 40px;
+    padding: 10px;
+}
+
+
+.abmelden a:hover {
+    background-color: #2A7B9B;
+    background: linear-gradient(90deg,rgba(42, 123, 155, 1) 0%, rgba(87, 199, 133, 1) 50%, rgba(237, 221, 83, 1) 100%);;
+    color: white;
+    border-color: #1984db;
+}
+h1{
+    font-size: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 30px;
+    flex-direction: column;
+}
+.container2{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    flex-direction: column;
+    padding: 50px;
+    min-height: 85vh;
+
+}
+.wilkommenstext{
+
+    font-size: 30px;
+}

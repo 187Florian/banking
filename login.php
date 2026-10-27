@@ -12,17 +12,17 @@ class login {
                     return true;
                 }
                     else{
-                        echo " Wrong PW!";
+                        $error = " Wrong PW!";
                 }
             }
                 else{
-                    echo "Wrong Email!";
+                    $error = "Wrong Email!";
                 }
         }
         catch(PDOException $e) {
-            echo "Datenbank Fehler: " . $e->getMessage();
+            $error = "Datenbank Fehler: " . $e->getMessage();
         }
     sleep(1);
-    return false;
+    return $error;
     }
 }

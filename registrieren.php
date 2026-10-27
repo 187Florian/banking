@@ -17,13 +17,14 @@ if($_SERVER['REQUEST_METHOD']==='POST'&& isset($_POST['regesNewUser'])){
             exit();
         }
         else{
-            echo "Error!";
+            $error = "Error!";
         }
     }
     else{
-        echo "Please provide valid info!";
+        $error = "Please provide valid info!";
     }
 }
+$error = $error ?? "";
 ?>
 <!DOCTYPE html>
 
@@ -32,9 +33,9 @@ if($_SERVER['REQUEST_METHOD']==='POST'&& isset($_POST['regesNewUser'])){
     <head>
         <meta charset="utf-8">
         <title>Registrieren</title>
-        <link rel="stylesheet" href="">
+        <link rel="stylesheet" href="style.css">
     </head>
-    <body>
+    <body class="container2">
         <h1>Konto erstellen</h1>
         <form action="registrieren.php" method="post">
             
@@ -44,10 +45,11 @@ if($_SERVER['REQUEST_METHOD']==='POST'&& isset($_POST['regesNewUser'])){
 
         <button type="submit" name="regesNewUser">Registrieren</button>
         </form>
-
-        <p><a href="anmelden.php">Sie besitzen schon ein Konto?</a></p>
+        <?php echo $error;?>
         <footer>
-            <p><a href="index.html">Zurück zur Hauptseite</a></p>
+        <p class="link"><a href="anmelden.php">Sie besitzen schon ein Konto?</a></p>
+        
+        <p class="link"><a href="index.html">Zurück zur Hauptseite</a></p>
         </footer>
        
     </body>

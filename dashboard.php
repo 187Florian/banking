@@ -12,7 +12,9 @@ if(isset($_POST['abmelden'])){
 }
 
 $nutzer = new user($_SESSION['email']);
-
+if(!isset($error)){
+    $error = "";
+}
 ?>
 
 
@@ -21,25 +23,24 @@ $nutzer = new user($_SESSION['email']);
     <head>
         <meta charset="utf-8">
         <title>Dashbaord</title>
-        <link rel="stylesheet" href="">
+        <link rel="stylesheet" href="style.css">
     </head>
-    <body>
+    <body class="container2">
         <h1>
             Dashboard
         </h1>
-
+        <div>
+        
         <form method="post">
-            <button name="abmelden">Abmelden</button>
+            <button name="abmelden" class="abmelden">Abmelden</button>
         </form>
-
-
-
-        <div>   
+        <div class="wilkommenstext">   
                 <p>Willkommen</p>   
                 <p>Dein Kontostand beträgt: <?php  echo $nutzer->getGeld() . '€';?>!</p>
-                <a href="transfer.php">Überweisungen</a>
+                <?php echo $error;?>
+</div>
         </div>
-        
-    
+    <footer>
+        <div class="link"><a href="transfer.php">Überweisungen</a></div></footer>
     </body>
 </html>
