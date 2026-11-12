@@ -12,7 +12,7 @@ else{
 
 //*   INDEX
 $lngwelcometext1 = [
-'de' => "Hier bist du genau Richtig",
+'de' => "Hier bist du genau richtig",
 'en' => "You are exacy were you are supposed to be!"
 ];
 $lngwelcometext2 = [
@@ -24,7 +24,7 @@ $lnglogin = [
     'en' =>  "Login"
     ];
 $lngnewaccount = [
-    'de' =>  "Regestrieren",
+    'de' =>  "Registrieren",
     'en' =>  "New Account"
     ];
 $lngLegalDisclosure = [
@@ -159,7 +159,7 @@ $lngTransferTitle = [
     'en' => "Transfer"
 ];
 $lngTransferH1 = [
-    'de' => "Überwesungen",
+    'de' => "Überweisung",
     'en' => "Transfers"
 ];
 $lngTransferAvailable1 = [
@@ -171,7 +171,7 @@ $lngTransferAvailable2 = [
     'en' => "€"
 ];
 $lngTransferPlaceholderMail = [
-    'de' => "Empfänger Email",
+    'de' => "Email des Empfängers",
     'en' => "Recipient e-mail"
 ];
 $lngTransferPlaceholderMenge = [
