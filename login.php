@@ -1,10 +1,11 @@
 <?php
 require_once 'tool.php';
+require_once 'db_con.php';
 class login {
     public function sql_logintest($em,$pw){
         try {
-        $db2 = new PDO('sqlite:user.db');
-            $pwHashObjekt = $db2->prepare("SELECT pwHash FROM USER WHERE email = :em");
+        $db = Db_con::getDb();
+            $pwHashObjekt = $db->prepare("SELECT pwHash FROM USER WHERE email = :em");
             $pwHashObjekt->execute([':em' => tool::emBereinigen($em)]);
             $pwHash = $pwHashObjekt->fetch(PDO::FETCH_ASSOC);
             if($pwHash){

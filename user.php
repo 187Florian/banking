@@ -1,14 +1,17 @@
 <?php
 require_once 'tool.php';
-
+require_once 'db_con.php';
+require_once 'log.php';
 class user{
 
 private $em;
 private $db;
+private $Logger;
 
 function __construct($pEm){
-$this->db= new PDO('sqlite:user.db');
+$this->db= Db_con::getDb();
 $this->em=tool::emBereinigen($pEm);
+$this->Logger = new Logger();
 }
 
 
@@ -64,7 +67,7 @@ public function getEmail(){
     return $this->em;
 }
 
-public function ueberweisung($amount, $empfänger){
+public function ueberweisung($amount, $empfaenger){
     try{//rollback funtion mit begint transk.
         $this->db->beginTransaction();
 
@@ -78,13 +81,13 @@ public function ueberweisung($amount, $empfänger){
 
         //empfänger
         if($geldChange->rowCount()==1){
-            $empängerGeld = $this->db->prepare(
+            $empaengerGeld = $this->db->prepare(
             "UPDATE user
-            SET geld = geld + :pAmountEmpfänger
-            WHERE email = :empfängerEm"
+            SET geld = geld + :pAmountEmpfaenger
+            WHERE email = :empfaengerEm"
             );
-            $empängerGeld->execute([':pAmountEmpfänger' => $amount,':empfängerEm'=> $empfänger]);
-            if($empängerGeld->rowCount() !== 1) {
+            $empaengerGeld->execute([':pAmountEmpfaenger' => $amount,':empfaengerEm'=> $empfaenger]);
+            if($empaengerGeld->rowCount() !== 1) {
                 $this->db->rollBack();
                 return false;
             }    
@@ -93,7 +96,11 @@ public function ueberweisung($amount, $empfänger){
             $this->db->rollBack(); 
             return false;
         }
+        //wenn alles geklappt hat, log wird geschrieben!
+        $this->Logger->logTransaction($amount,$empfaenger,$this);
+         // speichern allem (GELD + log)
         //änmderung permanent schreiben
+        
         $this->db->commit();
         return true;
     }
