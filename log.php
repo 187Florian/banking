@@ -1,5 +1,6 @@
 <?php
 require_once 'db_con.php';
+date_default_timezone_set('Europe/Berlin');
 class Logger{
     /*
         //Log typen
@@ -35,24 +36,33 @@ class Logger{
     $this->sendLog("transaction",$para);
     }
 
-    public function userAction($user,$type,$newValue) {
-    }
     //logic
-
-
+    public function privateLog($user,$activity,$value){
+        $para =[
+            'activity' => $activity,
+            'value' => $value,
+            "user" => $user,
+        ];
+        $this->sendLog("private_log",$para);
+    }
 
 
 
     private function sendLog(String $log_type,array $para){
         try{
 
+    
 
-        if(!$this->logging&&!$this->db->inTransaction()){
+        if(!$this->logging&&!$this->db->inTransaction()&& $log_type !="private_log"){
         $this->db->beginTransaction();
         $this->logging = true;
         }
 
-        
+        if($log_type =="private_log"){
+            $logEntry = "[". date('Y-m-d H:i:s') . "]" . " User: " . $para['user'] . "; Activity: " . $para['activity'] . "; Value: " . $para['value']. ";" . PHP_EOL ;
+            file_put_contents('logs/activity.log', $logEntry, FILE_APPEND | LOCK_EX);
+        }
+
         // log tranascion
         if($log_type =='transaction'){
         $log_payload = $this->db->prepare("

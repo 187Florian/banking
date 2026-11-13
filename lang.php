@@ -8,16 +8,16 @@ else{
         $_SESSION['lang'] = "de";
 }
 
-//AI used for translation here - english is not my main nor first language
+//AI used for translation here - English is neither my main nor my first language
 
 //*   INDEX
 $lngwelcometext1 = [
 'de' => "Hier bist du genau richtig",
-'en' => "You are exacy were you are supposed to be!"
+'en' => "You are exactly where you are supposed to be!"
 ];
 $lngwelcometext2 = [
     'de' => "Denn Geld ist unser Ding",
-    'en' => "'Cause money is our think"
+    'en' => "'Cause money is our thing"
     ];
 $lnglogin = [
     'de' => "Anmelden",
@@ -32,7 +32,7 @@ $lngLegalDisclosure = [
     'en' =>  "Legal Disclosure"
     ];
 $lngwhoweare = [
-    'de' =>  "Wer sind wir",
+    'de' =>  "Wer sind wir?",
     'en' =>  "Who we are"
 ];
 //*   login
@@ -41,7 +41,7 @@ $lngAnmeldenTitle = [
     'en' => "Login"
 ];
 $lngAnmeldenH1 = [
-    'de' => "Melden sie sich bitte an",
+    'de' => "Melden Sie sich bitte an",
     'en' => "Please log in"
 ];
 $lngAnmeldenPlaceholderEmail = [
@@ -125,12 +125,12 @@ $lngExplainH1 = [
     'en' => "What are we?"
 ];
 $lngExplainText = [
-    'de' => "Wir sind eine Digitale Bank. Vertrauen sie uns ihr Geld sicher an - wir bieten besonder Möglichekeiten!",
+    'de' => "Wir sind eine digitale Bank. Vertrauen Sie uns Ihr Geld sicher an - wir bieten besondere Möglichkeiten!",
     'en' => "We are a digital bank. Trust us with your money securely - we offer special possibilities!"
 ];
-//      dashbaord
+//      dashboard
 $lngDashboardTitle = [
-    'de' => "Dashbaord",
+    'de' => "Dashboard",
     'en' => "Dashboard"
 ];
 $lngDashboardH1 = [
@@ -159,7 +159,7 @@ $lngTransferTitle = [
     'en' => "Transfer"
 ];
 $lngTransferH1 = [
-    'de' => "Überweisung",
+    'de' => "Überweisungen",
     'en' => "Transfers"
 ];
 $lngTransferAvailable1 = [
@@ -171,11 +171,11 @@ $lngTransferAvailable2 = [
     'en' => "€"
 ];
 $lngTransferPlaceholderMail = [
-    'de' => "Email des Empfängers",
+    'de' => "E-Mail-Adresse des Empfängers",
     'en' => "Recipient e-mail"
 ];
 $lngTransferPlaceholderMenge = [
-    'de' => "Menge",
+    'de' => "Betrag",
     'en' => "Amount"
 ];
 $lngTransferButton = [
@@ -192,13 +192,13 @@ $lngTransferError = [
 ];
 $lngTransferErrorSelf = [
     'de' => "Du kannst dir nicht selbst Geld überweisen!",
-    'en' => "You can not transfer yourself money!"
+    'en' => "You cannot transfer money to yourself!"
 ];
 $lngTransferErrorAllgemein = [
     'de' => "Fehler!",
-    'en' => "error!"
+    'en' => "Error!"
 ];
 $lngTransferFooterDashboard = [
-    'de' => "Zurück zum Dashbaord",
+    'de' => "Zurück zum Dashboard",
     'en' => "Back to dashboard"
 ];

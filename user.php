@@ -14,7 +14,24 @@ $this->em=tool::emBereinigen($pEm);
 $this->Logger = new Logger();
 }
 
-
+public function changePassword($newPasword){
+try{
+    $pwChange = $this->db->prepare("
+    UPDATE user SET pwHash = :newPw WHERE email = :pem;
+    ");
+    $pwChange->execute([':newPw' => password_hash($newPasword,PASSWORD_DEFAULT),':pem'=> $this->em]);
+    if($pwChange->rowCount()==1){
+        
+        $this->Logger->privateLog($this->em,"Changed PW", "NONE");
+        return true;
+    }
+    return false;
+}
+catch(PDOException $e) {
+        echo "Datenbank Fehler: " . $e->getMessage();
+        return false;
+}
+}
 
 public function testForUser($em){
 try{
