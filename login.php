@@ -1,12 +1,12 @@
 <?php
 require_once 'tool.php';
 require_once 'db_con.php';
-class login {
+class Login {
     public function sql_logintest($em,$pw){
         try {
         $db = Db_con::getDb();
             $pwHashObjekt = $db->prepare("SELECT pwHash FROM USER WHERE email = :em");
-            $pwHashObjekt->execute([':em' => tool::emBereinigen($em)]);
+            $pwHashObjekt->execute([':em' => Tool::emBereinigen($em)]);
             $pwHash = $pwHashObjekt->fetch(PDO::FETCH_ASSOC);
             if($pwHash){
                 if(password_verify($pw,$pwHash['pwHash'])){

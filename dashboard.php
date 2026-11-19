@@ -8,7 +8,7 @@ require_once 'check_auth.php';
 
 //abmelden knopf
 if(isset($_POST['abmelden'])){
-    $sessionStop = new logout();
+    $sessionStop = new Logout();
     $sessionStop->abmelden();
 }
 

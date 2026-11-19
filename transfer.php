@@ -9,17 +9,17 @@ require_once 'lang.php';
 
     //abmelden
 if(isset($_POST['abmelden'])){
-        $sessionStop = new logout();
+        $sessionStop = new Logout();
         $sessionStop->abmelden();
 }
 
 //objekte
-$user = new User(tool::emBereinigen($_SESSION['email']));
+$user = new User(Tool::emBereinigen($_SESSION['email']));
 
 if($_SERVER['REQUEST_METHOD']== "POST" && isset($_POST['ueberweisen']) && isset($_POST['menge'])&& isset($_POST['mail'])){
     $menge = (int)$_POST['menge']; 
-    $postEmail = tool::emBereinigen($_POST['mail']);
-    if(tool::emTesten($postEmail) && $user->testForUser($postEmail)&& $menge>0){
+    $postEmail = Tool::emBereinigen($_POST['mail']);
+    if(Tool::emTesten($postEmail) && $user->testForUser($postEmail)&& $menge>0){
         //test if selbstüberweisung
         if($user->getEmail()!=$postEmail){
 

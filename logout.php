@@ -1,5 +1,5 @@
 <?php
-class logout{
+class Logout{
     public function abmelden(){
         //var reset    
         $_SESSION = array();

@@ -8,11 +8,11 @@ require_once 'check_not_loged_in.php';
 
 //header dashboard und überprüfer
 if ($_SERVER['REQUEST_METHOD']== "POST" && isset($_POST['anmelden'])){
-    $login = new login();
+    $login = new Login();
     $ergebnis = $login->sql_logintest($_POST['email'],$_POST['password']);
         if(!is_String($ergebnis)){
             $_SESSION['login'] = true;
-            $_SESSION['email'] = tool::emBereinigen($_POST['email']);
+            $_SESSION['email'] = Tool::emBereinigen($_POST['email']);
             header("Location: dashboard.php", true, 302);
             exit();
         }

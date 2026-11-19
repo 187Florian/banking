@@ -1,5 +1,9 @@
 <?php
 class Db_con{
+private function __construct()
+{
+    throw new \Exception('Not implemented THIS FUNCTION IS STATIC');
+}
 private static ?PDO $db = null;
 
 public static function getDb() {
@@ -10,6 +14,7 @@ if(self::$db==null){
     PDO::ATTR_ERRMODE,
     PDO::ERRMODE_EXCEPTION
     );
+    self::$db->setAttribute(PDO::ATTR_TIMEOUT, 5);
 }
 
 return self::$db;

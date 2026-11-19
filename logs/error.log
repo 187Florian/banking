@@ -1,0 +1,3 @@
+[2026-11-19 13:23:51] User: florian@outlook.com; Activity: Datenbank Fehler: Transaktion; Value: SQLSTATE[HY000]: General error: 5 database is locked;
+[2026-11-19 13:24:55] User: florian@outlook.com; Activity: Datenbank Fehler: Transaktion; Value: SQLSTATE[HY000]: General error: 5 database is locked;
+[2026-11-19 13:41:39] User: hjhj@gj.com; Activity: Function: Transaktion; Value: Fehler beim Geld abziehen (STEP 1) -User does not exist?;
