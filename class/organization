@@ -1,0 +1,41 @@
+<?php
+require_once "log.php";
+
+class Organization extends User{
+    private $owner;
+    private $db;
+    private $logger;
+    private int $id;
+    public function __construct($pEm) {
+        parent::__construct($pEm);
+        $this->db=$this->getDb();
+        $this->logger = new Logger();
+        $id = $this->getId();
+    }
+
+    
+
+
+    //getter // setter
+    private function getOwner($id){
+        
+    }
+    public function getDescription(): String{
+        
+        return "descr.";
+    }
+    public function isMinistry() : bool {
+        if($this->type=="ministry"){
+        return true;
+        }
+        return false;
+    }
+    protected function isBusiness() : bool {
+        if($this->type=="business"){
+            return true;
+            }
+            return false;
+    }
+
+
+}

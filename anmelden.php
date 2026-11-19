@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once 'login.php';
-require_once 'tool.php';
+require_once 'class/login.php';
+require_once 'class/tool.php';
 require_once 'lang.php';
 //already logt in
 require_once 'check_not_loged_in.php';
@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD']== "POST" && isset($_POST['anmelden'])){
     <body class="container2">
         <h1><?= $lngAnmeldenH1[$_SESSION['lang']] ?></h1>
             <form action="anmelden.php" method="post">
-                <input type="text" name="email" placeholder="<?= $lngAnmeldenPlaceholderEmail[$_SESSION['lang']] ?>" required>
+                <input type="text" name="name" placeholder="usermane" required>
                 <input type="password" name="password" placeholder="<?= $lngAnmeldenPlaceholderPassword[$_SESSION['lang']] ?>" required>
                 <button type="submit" name="anmelden"><?= $lngAnmeldenButton[$_SESSION['lang']] ?></button>
                 <br>

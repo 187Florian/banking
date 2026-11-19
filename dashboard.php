@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once 'logout.php';
-require_once 'user.php';
+require_once 'class/logout.php';
+require_once 'class/user.php';
 require_once 'lang.php';
 //check if logt in
 require_once 'check_auth.php';
@@ -12,7 +12,7 @@ if(isset($_POST['abmelden'])){
     $sessionStop->abmelden();
 }
 
-$nutzer = new user($_SESSION['email']);
+$nutzer = new User($_SESSION['email']);
 if(!isset($error)){
     $error = "";
 }

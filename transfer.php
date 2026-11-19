@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once 'logout.php';
-require_once 'user.php';
+require_once 'class/logout.php';
+require_once 'class/user.php';
 require_once 'check_auth.php';
 require_once 'tool.php';
 require_once 'lang.php';

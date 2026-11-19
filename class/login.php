@@ -2,11 +2,17 @@
 require_once 'tool.php';
 require_once 'db_con.php';
 class Login {
-    public function sql_logintest($em,$pw){
+    private $db;
+    public function __construct()
+    {
+        $this->db =$db = Db_con::getDb();
+    }
+    public function sql_logintest($name,$pw){
         try {
-        $db = Db_con::getDb();
-            $pwHashObjekt = $db->prepare("SELECT pwHash FROM USER WHERE email = :em");
-            $pwHashObjekt->execute([':em' => Tool::emBereinigen($em)]);
+
+
+            $pwHashObjekt = $this->db->prepare("SELECT pwHash FROM USER WHERE name = :username");
+            $pwHashObjekt->execute([':username' => Tool::emBereinigen($name)]);
             $pwHash = $pwHashObjekt->fetch(PDO::FETCH_ASSOC);
             if($pwHash){
                 if(password_verify($pw,$pwHash['pwHash'])){
@@ -17,7 +23,7 @@ class Login {
                 }
             }
                 else{
-                    $error = "Wrong Email!";
+                    $error = "Wrong name";
                 }
         }
         catch(PDOException $e) {
@@ -26,4 +32,6 @@ class Login {
     sleep(1);
     return $error;
     }
+
+   
 }

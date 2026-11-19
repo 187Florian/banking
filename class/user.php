@@ -2,24 +2,26 @@
 require_once 'tool.php';
 require_once 'db_con.php';
 require_once 'log.php';
-class user{
+class User{
 
 private $em;
+private $id;
 private $db;
 private $logger;
-private $type;
-function __construct($pEm){
+protected $type;
+function __construct(int $id){
 $this->db= Db_con::getDb();
-$this->em=Tool::emBereinigen($pEm);
 $this->logger = new Logger();
 }
+
+
 
 public function changePassword($newPasword){
 try{
     $pwChange = $this->db->prepare("
-    UPDATE user SET pwHash = :newPw WHERE email = :pem;
+    UPDATE user SET pwHash = :newPw WHERE id = :pid;
     ");
-    $pwChange->execute([':newPw' => password_hash($newPasword,PASSWORD_DEFAULT),':pem'=> $this->em]);
+    $pwChange->execute([':newPw' => password_hash($newPasword,PASSWORD_DEFAULT),':pid'=> $this->id]);
     if($pwChange->rowCount()==1){
         
         $this->logger->privateLog($this->em,"Changed PW", "NONE");
@@ -34,10 +36,10 @@ catch(PDOException $e) {
 }
 }
 
-public function testForUser($em): bool{
+public function testForUser($id): bool{
 try{
-    $testForUser = $this->db->prepare("SELECT EXISTS(SELECT 1 FROM user WHERE email = :em);");
-    $testForUser->execute([':em'=>$em]);
+    $testForUser = $this->db->prepare("SELECT EXISTS(SELECT 1 FROM user WHERE id = :id);");
+    $testForUser->execute([':id'=>$id]);
     $result = (bool) $testForUser->fetchColumn();
     return $result;
 }
@@ -154,6 +156,13 @@ public function getType(string $em): String {
     //db zugriff um sehen welcher type ein account ist
     return "user";
 }
+public function getName() : String {
+    //muss noch sql anfrage
+    return "name";
+}
+public function getId(): int {
+    return $this->id;
+}
 protected function getDb():PDO|null  {
     try{
     return $this->db;
@@ -164,4 +173,5 @@ protected function getDb():PDO|null  {
         return null;
     }
 }
+
 }

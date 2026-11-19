@@ -9,14 +9,15 @@ private static ?PDO $db = null;
 public static function getDb() {
 try{
 if(self::$db==null){
-    self::$db = new PDO('sqlite:user.db');
+    $dbPath = __DIR__ . '/../db/user.db';
+    self::$db = new PDO('sqlite:'.  $dbPath);
     self::$db->setAttribute(
     PDO::ATTR_ERRMODE,
     PDO::ERRMODE_EXCEPTION
     );
+    self::$db->exec('PRAGMA foreign_keys = ON;');
     self::$db->setAttribute(PDO::ATTR_TIMEOUT, 5);
 }
-
 return self::$db;
 }
 

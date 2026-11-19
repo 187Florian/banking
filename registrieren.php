@@ -2,7 +2,7 @@
 session_start();
 //already logt in
 require_once 'check_not_loged_in.php';
-require_once 'user.php';
+require_once 'class/user.php';
 require_once 'lang.php';
 if($_SERVER['REQUEST_METHOD']==='POST'&& isset($_POST['regesNewUser'])){
     $email = trim($_POST['email']);
