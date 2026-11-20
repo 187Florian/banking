@@ -4,8 +4,6 @@ require_once "log.php";
 class Organization extends User{
     private $owner;
     private $db;
-    private $logger;
-    private int $id;
     public function __construct($pEm) {
         parent::__construct($pEm);
         $this->db=$this->getDb();
