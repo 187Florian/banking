@@ -5,16 +5,21 @@ require_once 'log.php';
 class User{
 
 private $em;
-private $id;
+protected readonly int $id;
 private $db;
-private $logger;
-protected $type;
-function __construct(int $id){
+protected readonly Logger $logger;
+protected readonly String $type;
+function __construct(int $pId){
 $this->db= Db_con::getDb();
 $this->logger = new Logger();
+$this->id = $pId;
 }
 
-
+/*
+    id: 1...* User/ ministry / business
+    id: -1 temp test id
+    id 0 admin pobably
+*/
 
 public function changePassword($newPasword){
 try{
@@ -50,15 +55,27 @@ catch(PDOException $e) {
 
 }
 }
-public static function newUser($em,$pw){
+public static function newUser(String $name,String $pw,String $userType): bool{
+    $Templogger= new Logger();
     try{
-        $tempUser = new user(Tool::emBereinigen($em));
+        $tempUser = new user(Tool::emBereinigen(-1));
+        
         //test if already an user with this email
-        if(!$tempUser->testForUser($tempUser->getEmail())&&Tool::emTesten($em)){
+        $bereinigterName = $name; 
+        //!!!! Fehlend noch test valider name!  
+        $nameOk= true;
+        
+        $testAnfrageName = $tempUser->db->prepare("SELECT EXISTS(SELECT 1 FROM user WHERE name = :pName);");
+        $testAnfrageName->execute(['pName'=>$bereinigterName]);
+        $result = (bool) $testAnfrageName->fetchColumn();
+
+
+        if(!$result&&$nameOk){  
         $createNewUserSQL = $tempUser->db->prepare(
-        "INSERT INTO user (email,pwHash,geld)
-        VALUES (:email,:pwHash,:geld);");
-        $createNewUserSQL->execute([':email'=>$tempUser->getEmail(),':pwHash'=>password_hash($pw,PASSWORD_DEFAULT),':geld'=>10]);
+        "INSERT INTO user ('name','pwHash','type')
+        VALUES (:pname,:pwHash,:pType);");
+        $createNewUserSQL->execute([':pname'=>$bereinigterName,':pwHash'=>password_hash($pw,PASSWORD_DEFAULT),'pType'=>$userType]);
+        $Templogger->privateLog($bereinigterName,"new Account","Account Type" . $userType);
         return true;
         }
         
@@ -66,7 +83,7 @@ public static function newUser($em,$pw){
         }
     catch(PDOException $e){
         echo "Datenbank Fehler: " . $e->getMessage();
-        
+        $Templogger->errorLog("noUser, wird gerade erstellt!", "Datenbank Fehler: User; Function:  newUser" ,$e->getMessage());
         return false;
     }
 
@@ -152,9 +169,18 @@ public function ueberweisung(int $amount, String $empfaenger){
 
     return false;
 }
-public function getType(string $em): String {
-    //db zugriff um sehen welcher type ein account ist
-    return "user";
+public final function getType(int $pid ): String {
+    try{
+$dbRequest = $this->db->prepare("SELECT type FROM user WHERE id=:pId;");
+$dbRequest->execute([':pId'=>$pid]);
+$resultType = $dbRequest->fetch(PDO::FETCH_ASSOC);
+
+return (String) $resultType['type'];
+    }catch(PDOException $e){
+        echo "Datenbank Fehler: " . $e->getMessage();
+        $this->logger->errorLog($this->em, "Datenbank Fehler: User; Function:  getType" ,$e->getMessage());
+        return 0;
+    }
 }
 public function getName() : String {
     //muss noch sql anfrage

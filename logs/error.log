@@ -3,3 +3,5 @@
 [2026-11-19 13:41:39] User: hjhj@gj.com; Activity: Function: Transaktion; Value: Fehler beim Geld abziehen (STEP 1) -User does not exist?;
 [2026-11-19 21:34:46] User: wtest.test; Activity: Datenbank Fehler: User; Function:  testForUser; Value: SQLSTATE[HY000]: General error: 1 no such column: email;
 [2026-11-19 21:34:49] User: wtest.test; Activity: Datenbank Fehler: User; Function:  testForUser; Value: SQLSTATE[HY000]: General error: 1 no such column: email;
+[2026-11-20 21:11:00] User: noUser, wird gerade erstellt!; Activity: Datenbank Fehler: User; Function:  newUser; Value: SQLSTATE[HY000]: General error: 1 table user has no column named :name;
+[2026-11-20 21:50:25] User: noUser, wird gerade erstellt!; Activity: Datenbank Fehler: User; Function:  newUser; Value: SQLSTATE[HY000]: General error: 1 table user has no column named :pname;
